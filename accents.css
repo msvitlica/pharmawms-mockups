@@ -1,0 +1,22 @@
+/* ============================================================================
+   PharmaWMS — accent varijante
+   Aktivira se sa ?accent=teal|indigo|blue|emerald (vidi inline skriptu u <head>),
+   koja postavlja <html data-accent="...">. Override-uje samo brand/accent;
+   neutralne boje ostaju iz tokens.css. Svaka varijanta ima svetlu i tamnu nijansu.
+   ========================================================================== */
+
+/* blue (isto kao default, eksplicitno) */
+:root[data-accent="blue"]  { --brand: 37 99 235;  --brand-2: 59 130 246; --accent: 6 182 212; }
+.dark[data-accent="blue"]  { --brand: 59 130 246; --brand-2: 96 165 250; --accent: 34 211 238; }
+
+/* teal */
+:root[data-accent="teal"]  { --brand: 13 148 136; --brand-2: 20 184 166; --accent: 6 182 212; }
+.dark[data-accent="teal"]  { --brand: 20 184 166; --brand-2: 45 212 191; --accent: 34 211 238; }
+
+/* indigo */
+:root[data-accent="indigo"] { --brand: 79 70 229;  --brand-2: 99 102 241;  --accent: 139 92 246; }
+.dark[data-accent="indigo"] { --brand: 99 102 241; --brand-2: 129 140 248; --accent: 167 139 250; }
+
+/* emerald */
+:root[data-accent="emerald"] { --brand: 5 150 105;  --brand-2: 16 185 129; --accent: 20 184 166; }
+.dark[data-accent="emerald"] { --brand: 16 185 129; --brand-2: 52 211 153; --accent: 45 212 191; }

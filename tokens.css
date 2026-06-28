@@ -1,0 +1,286 @@
+/* ============================================================================
+   PharmaWMS — design tokens + components
+   Boje se daju kao RGB trojke (space-separated) jer Tailwind config koristi
+   rgb(var(--x) / <alpha-value>). Default akcenat: blue + cyan.
+   ========================================================================== */
+
+:root {
+  --canvas:    247 248 250;
+  --canvas-2:  241 243 246;
+  --surface:   255 255 255;
+  --surface-2: 246 247 249;
+  --surface-3: 239 242 246;
+  --line:      226 230 236;
+  --line-2:    210 216 224;
+  --ink:        17  24  39;
+  --ink-2:      51  65  85;
+  --muted:     100 116 139;
+  --subtle:    148 163 184;
+  --brand:      37  99 235;
+  --brand-2:    59 130 246;
+  --accent:      6 182 212;
+  --positive:   22 163  74;
+  --negative:  220  38  38;
+  --warning:   217 119   6;
+}
+
+.dark {
+  --canvas:     13  17  23;
+  --canvas-2:   17  22  30;
+  --surface:    22  27  34;
+  --surface-2:  29  35  44;
+  --surface-3:  34  41  51;
+  --line:       45  53  66;
+  --line-2:     60  70  85;
+  --ink:       237 240 245;
+  --ink-2:     202 210 221;
+  --muted:     148 160 178;
+  --subtle:    107 120 139;
+  --brand:      59 130 246;
+  --brand-2:    96 165 250;
+  --accent:     34 211 238;
+  --positive:   34 197  94;
+  --negative:  248 113 113;
+  --warning:   251 191  36;
+}
+
+/* ── base ─────────────────────────────────────────────────────────────── */
+html { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+body {
+  background: rgb(var(--canvas));
+  color: rgb(var(--ink));
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.font-display { font-family: "Space Grotesk", Inter, sans-serif; }
+
+/* tabular figures for aligned numbers */
+.tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+/* right-align numeric table cells */
+th.num, td.num, .num { text-align: right; }
+
+/* page background with a faint brand/accent wash */
+.app-bg {
+  background-color: rgb(var(--canvas));
+  background-image:
+    radial-gradient(60rem 42rem at 108% -12%, rgb(var(--brand) / .07), transparent 60%),
+    radial-gradient(52rem 40rem at -8% -4%, rgb(var(--accent) / .06), transparent 56%);
+  color: rgb(var(--ink));
+}
+
+/* ── logo ─────────────────────────────────────────────────────────────── */
+.logo-mark {
+  display: inline-grid;
+  place-items: center;
+  height: 2.2rem; width: 2.2rem;
+  border-radius: .85rem;
+  background: linear-gradient(140deg, rgb(var(--brand)), rgb(var(--accent)));
+  color: #fff;
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  box-shadow: 0 8px 20px -10px rgb(var(--brand) / .7);
+}
+
+/* ── surfaces ─────────────────────────────────────────────────────────── */
+.card {
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--line));
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgb(15 23 42 / .04), 0 1px 3px rgb(15 23 42 / .03);
+}
+.dark .card { box-shadow: 0 1px 2px rgb(0 0 0 / .3); }
+
+.card-inset {
+  background: rgb(var(--surface-2));
+  border: 1px solid rgb(var(--line));
+  border-radius: .85rem;
+}
+.card-flat {
+  background: rgb(var(--surface-2));
+  border: 1px solid rgb(var(--line));
+  border-radius: .85rem;
+}
+
+/* hero gallery kartica (index): pločica ima h-full pa bez ovoga pojede cijelu
+   visinu i footer (naslov/Otvori) padne ispod overflow-hidden ivice. Skupimo
+   pločicu da raste fleksibilno — pogađa SAMO karticu čije je direktno dijete .tile.h-full */
+.card:has(> .tile.h-full) { display: flex; flex-direction: column; }
+.card:has(> .tile.h-full) > .tile.h-full { flex: 1 1 auto; height: auto; }
+
+.hover-rise { transition: transform .18s ease, box-shadow .18s ease; }
+.hover-rise:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -16px rgb(15 23 42 / .28);
+}
+.dark .hover-rise:hover { box-shadow: 0 16px 34px -18px rgb(0 0 0 / .6); }
+
+/* ── KPI ──────────────────────────────────────────────────────────────── */
+.kpi {
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--line));
+  border-radius: .9rem;
+  padding: 1rem 1.1rem;
+}
+.kpi-label { font-size: 12px; font-weight: 500; color: rgb(var(--muted)); }
+.kpi-value { font-family: "Space Grotesk", Inter, sans-serif; font-weight: 700; line-height: 1.1; color: rgb(var(--ink)); }
+
+/* ── tiles (gallery, index) ───────────────────────────────────────────── */
+.tile {
+  background:
+    radial-gradient(28rem 16rem at 90% -40%, rgb(var(--accent) / .16), transparent 60%),
+    radial-gradient(28rem 18rem at 10% -30%, rgb(var(--brand) / .18), transparent 60%),
+    rgb(var(--surface-3));
+}
+.tile-icon {
+  background: linear-gradient(140deg, rgb(var(--brand)), rgb(var(--accent)));
+  color: #fff;
+  box-shadow: 0 10px 24px -10px rgb(var(--brand) / .6);
+}
+.grid-faint {
+  background-image:
+    linear-gradient(to right, rgb(var(--ink) / .06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--ink) / .06) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* ── buttons ──────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+  border-radius: .6rem;
+  padding: .5rem .85rem;
+  font-size: 14px; font-weight: 500; line-height: 1.1;
+  border: 1px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.btn-ghost { background: transparent; border-color: rgb(var(--line)); color: rgb(var(--ink-2)); }
+.btn-ghost:hover { background: rgb(var(--surface-2)); color: rgb(var(--ink)); }
+.btn-soft { background: rgb(var(--brand) / .1); color: rgb(var(--brand)); }
+.btn-soft:hover { background: rgb(var(--brand) / .16); }
+.btn-brand { background: rgb(var(--brand)); color: #fff; box-shadow: 0 8px 18px -10px rgb(var(--brand) / .8); }
+.btn-brand:hover { background: rgb(var(--brand-2)); }
+.btn-icon {
+  display: inline-grid; place-items: center;
+  padding: .5rem; line-height: 0;
+  border-radius: .6rem; cursor: pointer; color: inherit;
+  border: 1px solid transparent;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn-icon:hover { background: rgb(var(--surface-2)); }
+.btn.btn-icon { padding: .5rem; }
+
+/* ── chip ─────────────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex; align-items: center; gap: .4rem;
+  border: 1px solid rgb(var(--line));
+  background: rgb(var(--surface));
+  color: rgb(var(--muted));
+  border-radius: 999px;
+  padding: .25rem .65rem;
+  font-size: 12px; font-weight: 500; line-height: 1.1;
+}
+
+/* ── badges ───────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: .3rem;
+  border-radius: .5rem;
+  padding: .12rem .45rem;
+  font-size: 11px; font-weight: 600; line-height: 1.4;
+  border: 1px solid transparent;
+}
+.badge-brand    { background: rgb(var(--brand) / .12);    color: rgb(var(--brand));    }
+.badge-accent   { background: rgb(var(--accent) / .14);   color: rgb(var(--accent));   }
+.badge-positive { background: rgb(var(--positive) / .13); color: rgb(var(--positive)); }
+.badge-negative { background: rgb(var(--negative) / .13); color: rgb(var(--negative)); }
+.badge-warning  { background: rgb(var(--warning) / .15);  color: rgb(var(--warning));  }
+.badge-muted    { background: rgb(var(--muted) / .12);    color: rgb(var(--muted));    }
+/* color the var(--accent)/positive etc. brand badge text a touch darker in light for contrast */
+
+/* ── sidebar nav ──────────────────────────────────────────────────────── */
+.nav-item {
+  display: flex; align-items: center; gap: .65rem;
+  border-radius: .6rem;
+  padding: .5rem .65rem;
+  font-size: 14px; font-weight: 500;
+  color: rgb(var(--ink-2));
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+.nav-item:hover { background: rgb(var(--surface-2)); color: rgb(var(--ink)); }
+.nav-item.active { background: rgb(var(--brand) / .12); color: rgb(var(--brand)); font-weight: 600; }
+.nav-item svg { flex-shrink: 0; }
+
+/* ── form fields ──────────────────────────────────────────────────────── */
+.field {
+  width: 100%;
+  background: rgb(var(--canvas-2));
+  border: 1px solid rgb(var(--line));
+  border-radius: .6rem;
+  padding: .5rem .75rem;
+  font-size: 14px;
+  color: rgb(var(--ink));
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.field::placeholder { color: rgb(var(--subtle)); }
+.field:focus {
+  outline: none;
+  border-color: rgb(var(--brand));
+  box-shadow: 0 0 0 3px rgb(var(--brand) / .18);
+}
+select.field { appearance: none; -webkit-appearance: none; cursor: pointer; }
+
+/* ── data tables ──────────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table thead th {
+  text-align: left;
+  padding: .55rem .75rem;
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .04em;
+  color: rgb(var(--subtle));
+  border-bottom: 1px solid rgb(var(--line));
+  white-space: nowrap;
+}
+.data-table tbody td {
+  padding: .6rem .75rem;
+  border-bottom: 1px solid rgb(var(--line));
+  color: rgb(var(--ink-2));
+  vertical-align: middle;
+}
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table tbody tr:hover td { background: rgb(var(--surface-2) / .6); }
+.data-table th.num, .data-table td.num { text-align: right; }
+
+/* ── tabs ─────────────────────────────────────────────────────────────── */
+.tab {
+  display: inline-flex; align-items: center;
+  padding: .55rem .2rem;
+  margin-right: 1.25rem;
+  font-size: 14px; font-weight: 500;
+  color: rgb(var(--muted));
+  border-bottom: 2px solid transparent;
+  background: transparent; cursor: pointer;
+  transition: color .15s ease, border-color .15s ease;
+}
+.tab:hover { color: rgb(var(--ink)); }
+.tab.active { color: rgb(var(--brand)); border-bottom-color: rgb(var(--brand)); font-weight: 600; }
+
+/* ── pulsing status dot ───────────────────────────────────────────────── */
+.pulse-dot { position: relative; }
+.pulse-dot::after {
+  content: ""; position: absolute; inset: 0;
+  border-radius: 999px;
+  background: currentColor;
+  animation: pulse-ring 1.8s cubic-bezier(.4,0,.6,1) infinite;
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: .55; }
+  70%  { transform: scale(2.6); opacity: 0;   }
+  100% { transform: scale(2.6); opacity: 0;   }
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot::after { animation: none; }
+  .hover-rise { transition: none; }
+}
